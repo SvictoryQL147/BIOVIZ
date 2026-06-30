@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BioViz — Free Online Bioinformatics Tools</title>
+  <meta name="description" content="Free browser-based bioinformatics toolkit. DNA/RNA analysis, translation, ORF finder, restriction mapping, phylogenetic trees, pairwise alignment, and more. No install required."/>
+  <meta name="keywords" content="bioinformatics, DNA analysis, sequence analysis, ORF finder, restriction enzyme, phylogenetic tree, codon usage, online tool, free"/>
+  <meta property="og:title" content="BioViz — Free Online Bioinformatics Tools"/>
+  <meta property="og:description" content="Browser-based DNA/RNA/protein analysis. 15+ tools. No install, no login, no data sent to any server."/>
+  <meta property="og:type" content="website"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+</head>
+<body>
+  <!-- Toast container -->
+  <div id="toast-container"></div>
+
+  <!-- Mobile overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <div class="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">🧬</div>
+          <div>
+            <div class="logo-name">BioViz</div>
+            <div class="logo-sub">Bioinformatics Tools</div>
+          </div>
+        </div>
+        <button class="sidebar-close" onclick="closeSidebar()"><i class="ti ti-x"></i></button>
+      </div>
+
+      <div class="search-box">
+        <i class="ti ti-search"></i>
+        <input type="text" id="tool-search" placeholder="Search tools…" oninput="filterTools(this.value)"/>
+      </div>
+
+      <nav id="nav-menu">
+        <div class="nav-group" data-group="import">
+          <div class="nav-section">Import</div>
+          <button class="nav-item" data-tab="fileimport" data-keywords="fasta genbank upload file import fa gb gbk"><i class="ti ti-upload"></i><span>File Import</span></button>
+        </div>
+        <div class="nav-group" data-group="sequence">
+          <div class="nav-section">Sequence Analysis</div>
+          <button class="nav-item active" data-tab="gc"         data-keywords="gc content nucleotide composition base frequency"><i class="ti ti-chart-pie"></i><span>GC &amp; Composition</span></button>
+          <button class="nav-item" data-tab="translate"         data-keywords="translate translation protein reading frame codon"><i class="ti ti-arrow-right"></i><span>Translation</span></button>
+          <button class="nav-item" data-tab="orf"              data-keywords="orf open reading frame start stop atg"><i class="ti ti-scan"></i><span>ORF Finder</span></button>
+          <button class="nav-item" data-tab="codonusage"        data-keywords="codon usage frequency bias synonymous"><i class="ti ti-list-numbers"></i><span>Codon Usage</span></button>
+          <button class="nav-item" data-tab="motif"            data-keywords="motif search pattern iupac regex find"><i class="ti ti-search"></i><span>Motif Search</span></button>
+          <button class="nav-item" data-tab="restriction"       data-keywords="restriction enzyme ecori bamhi cut site cloning"><i class="ti ti-cut"></i><span>Restriction Sites</span></button>
+        </div>
+        <div class="nav-group" data-group="protein">
+          <div class="nav-section">Protein</div>
+          <button class="nav-item" data-tab="protprop"         data-keywords="protein molecular weight pi isoelectric hydrophobicity mw"><i class="ti ti-atom"></i><span>Protein Properties</span></button>
+        </div>
+        <div class="nav-group" data-group="variation">
+          <div class="nav-section">Variation</div>
+          <button class="nav-item" data-tab="mutation"         data-keywords="mutation substitution insertion deletion missense nonsense synonymous"><i class="ti ti-pencil"></i><span>Mutation Simulator</span></button>
+          <button class="nav-item" data-tab="snp"              data-keywords="snp variant difference transition transversion compare"><i class="ti ti-git-diff"></i><span>SNP Visualizer</span></button>
+          <button class="nav-item" data-tab="genomebrowser"    data-keywords="genome browser zoom scroll annotation gene"><i class="ti ti-zoom-in"></i><span>Genome Browser</span></button>
+        </div>
+        <div class="nav-group" data-group="comparative">
+          <div class="nav-section">Comparative</div>
+          <button class="nav-item" data-tab="align"            data-keywords="alignment pairwise needleman wunsch global identity"><i class="ti ti-arrows-horizontal"></i><span>Pairwise Align</span></button>
+          <button class="nav-item" data-tab="dotplot"          data-keywords="dot plot matrix similarity diagonal repeat"><i class="ti ti-chart-scatter"></i><span>Dot Plot</span></button>
+          <button class="nav-item" data-tab="phylo"            data-keywords="phylogenetic tree neighbor joining evolution distance"><i class="ti ti-binary-tree"></i><span>Phylogenetic Tree</span></button>
+        </div>
+        <div class="nav-group" data-group="utilities">
+          <div class="nav-section">Utilities</div>
+          <button class="nav-item" data-tab="revcomp"          data-keywords="reverse complement antisense primer strand"><i class="ti ti-refresh"></i><span>Rev. Complement</span></button>
+          <button class="nav-item" data-tab="about"            data-keywords="about help how to use guide quick start"><i class="ti ti-help-circle"></i><span>About &amp; Help</span></button>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="https://github.com" target="_blank" class="footer-link"><i class="ti ti-brand-github"></i> GitHub</a>
+        <span class="footer-ver">v2.0 · All analysis runs locally</span>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-btn" onclick="openSidebar()"><i class="ti ti-menu-2"></i></button>
+          <div class="topbar-info">
+            <h1 class="topbar-title" id="tab-title">GC Content &amp; Nucleotide Composition</h1>
+            <p class="topbar-sub" id="tab-sub">Analyze base frequencies and GC ratio</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <span class="badge" id="tab-badge">DNA / RNA</span>
+          <button class="icon-btn" onclick="shareTab()" title="Share this tool"><i class="ti ti-share"></i></button>
+          <button class="icon-btn" onclick="toggleTheme()" title="Toggle dark/light mode" id="theme-btn"><i class="ti ti-moon"></i></button>
+        </div>
+      </header>
+
+      <!-- Privacy banner -->
+      <div class="privacy-banner" id="privacy-banner">
+        <i class="ti ti-shield-check"></i>
+        <span>Your sequences never leave your browser — all analysis runs 100% locally.</span>
+        <button onclick="document.getElementById('privacy-banner').style.display='none'"><i class="ti ti-x"></i></button>
+      </div>
+
+      <div class="content" id="content-area"></div>
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/fileimport.js"></script>
+  <script src="js/gc.js"></script>
+  <script src="js/translate.js"></script>
+  <script src="js/orf.js"></script>
+  <script src="js/codonusage.js"></script>
+  <script src="js/motif.js"></script>
+  <script src="js/restriction.js"></script>
+  <script src="js/protprop.js"></script>
+  <script src="js/mutation.js"></script>
+  <script src="js/snp.js"></script>
+  <script src="js/genomebrowser.js"></script>
+  <script src="js/align.js"></script>
+  <script src="js/dotplot.js"></script>
+  <script src="js/phylo.js"></script>
+  <script src="js/revcomp.js"></script>
+  <script src="js/about.js"></script>
+</body>
+</html>
