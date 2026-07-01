@@ -1,6 +1,7 @@
 // ── Tab metadata ──────────────────────────────────────────────────────────────
 const TAB_META = {
   fileimport:    { title:'File Import',                          sub:'Upload .fasta .fa .fna .gb .gbk files', badge:'Import' },
+  batch:         { title:'Batch Analysis',                       sub:'Run multiple analyses across all imported sequences at once', badge:'Batch' },
   gc:            { title:'GC Content & Nucleotide Composition',  sub:'Base frequencies, GC ratio, colored sequence', badge:'DNA / RNA' },
   translate:     { title:'Translation',                          sub:'Translate DNA in all 3 forward reading frames', badge:'DNA → Protein' },
   orf:           { title:'ORF Finder',                           sub:'Detect all open reading frames across 6 frames', badge:'ORF' },
@@ -20,7 +21,7 @@ const TAB_META = {
 
 function getPanel(id) {
   const map = {
-    fileimport: fileimportPanel, gc: gcPanel, translate: translatePanel,
+    fileimport: fileimportPanel, batch: batchPanel, gc: gcPanel, translate: translatePanel,
     orf: orfPanel, codonusage: codonusagePanel, motif: motifPanel,
     restriction: restrictionPanel, protprop: protpropPanel,
     mutation: mutationPanel, snp: snpPanel, genomebrowser: genomebrowserPanel,
