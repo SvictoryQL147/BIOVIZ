@@ -243,3 +243,25 @@ function seqTextarea(id, rows=4, val='', placeholder='Paste sequence — or impo
 function getSharedSeq(fallback='') {
   return window.sharedSeqs.length ? window.sharedSeqs[0].seq : fallback;
 }
+
+// ── Phase 2 tab metadata additions ───────────────────────────────────────────
+Object.assign(TAB_META, {
+  ncbifetch:   { title:'NCBI Sequence Fetch',          sub:'Fetch any sequence by accession number directly from NCBI', badge:'NCBI' },
+  primer:      { title:'Primer Design',                sub:'Design PCR primers with Tm, GC%, hairpin scoring', badge:'PCR' },
+  msa:         { title:'Multiple Sequence Alignment',  sub:'Progressive alignment of 2–20 sequences (ClustalW-style)', badge:'MSA' },
+  sw:          { title:'Smith-Waterman Local Align',   sub:'Find the best matching sub-region between two sequences', badge:'Local' },
+  annotation:  { title:'Sequence Annotation Builder',  sub:'Add features, export GenBank and GFF3', badge:'Annotate' },
+});
+
+// Patch getPanel to include Phase 2 panels
+const _origGetPanel = getPanel;
+function getPanel(id) {
+  const phase2 = {
+    ncbifetch:  ncbiFetchPanel,
+    primer:     primerPanel,
+    msa:        msaPanel,
+    sw:         swPanel,
+    annotation: annotationPanel,
+  };
+  return phase2[id] || _origGetPanel(id);
+}

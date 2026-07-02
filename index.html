@@ -42,9 +42,10 @@
 
       <nav id="nav-menu">
         <div class="nav-group" data-group="import">
-          <div class="nav-section">Import</div>
-          <button class="nav-item" data-tab="fileimport" data-keywords="fasta genbank upload file import fa gb gbk"><i class="ti ti-upload"></i><span>File Import</span></button>
-          <button class="nav-item" data-tab="batch"      data-keywords="batch multiple sequences bulk analysis all"><i class="ti ti-stack-2"></i><span>Batch Analysis</span><span style="font-size:10px;background:var(--accent);color:#fff;padding:1px 5px;border-radius:100px;margin-left:auto;">New</span></button>
+          <div class="nav-section">Import &amp; Fetch</div>
+          <button class="nav-item" data-tab="fileimport"  data-keywords="fasta genbank upload file import fa gb gbk"><i class="ti ti-upload"></i><span>File Import</span></button>
+          <button class="nav-item" data-tab="ncbifetch"   data-keywords="ncbi accession fetch download genbank refseq nm nc np"><i class="ti ti-cloud-download"></i><span>NCBI Fetch</span><span style="font-size:10px;background:var(--green);color:#fff;padding:1px 5px;border-radius:100px;margin-left:auto;">New</span></button>
+          <button class="nav-item" data-tab="batch"       data-keywords="batch multiple sequences bulk analysis all"><i class="ti ti-stack-2"></i><span>Batch Analysis</span></button>
         </div>
         <div class="nav-group" data-group="sequence">
           <div class="nav-section">Sequence Analysis</div>
@@ -68,11 +69,15 @@
         <div class="nav-group" data-group="comparative">
           <div class="nav-section">Comparative</div>
           <button class="nav-item" data-tab="align"            data-keywords="alignment pairwise needleman wunsch global identity"><i class="ti ti-arrows-horizontal"></i><span>Pairwise Align</span></button>
+          <button class="nav-item" data-tab="sw"               data-keywords="smith waterman local alignment domain fragment"><i class="ti ti-arrows-cross"></i><span>Local Align (S-W)</span></button>
+          <button class="nav-item" data-tab="msa"              data-keywords="multiple sequence alignment clustal progressive msa"><i class="ti ti-align-left"></i><span>Multi-seq Align</span><span style="font-size:10px;background:var(--green);color:#fff;padding:1px 5px;border-radius:100px;margin-left:auto;">New</span></button>
           <button class="nav-item" data-tab="dotplot"          data-keywords="dot plot matrix similarity diagonal repeat"><i class="ti ti-chart-scatter"></i><span>Dot Plot</span></button>
           <button class="nav-item" data-tab="phylo"            data-keywords="phylogenetic tree neighbor joining evolution distance"><i class="ti ti-binary-tree"></i><span>Phylogenetic Tree</span></button>
         </div>
         <div class="nav-group" data-group="utilities">
-          <div class="nav-section">Utilities</div>
+          <div class="nav-section">Utilities &amp; Design</div>
+          <button class="nav-item" data-tab="primer"           data-keywords="primer pcr design tm melting temperature gc hairpin"><i class="ti ti-git-fork"></i><span>Primer Design</span><span style="font-size:10px;background:var(--green);color:#fff;padding:1px 5px;border-radius:100px;margin-left:auto;">New</span></button>
+          <button class="nav-item" data-tab="annotation"       data-keywords="annotation annotate genbank gff3 feature gene cds"><i class="ti ti-tag"></i><span>Annotation Builder</span><span style="font-size:10px;background:var(--green);color:#fff;padding:1px 5px;border-radius:100px;margin-left:auto;">New</span></button>
           <button class="nav-item" data-tab="revcomp"          data-keywords="reverse complement antisense primer strand"><i class="ti ti-refresh"></i><span>Rev. Complement</span></button>
           <button class="nav-item" data-tab="about"            data-keywords="about help how to use guide quick start"><i class="ti ti-help-circle"></i><span>About &amp; Help</span></button>
         </div>
@@ -116,6 +121,9 @@
   <script src="js/app.js"></script>
   <script src="js/fileimport.js"></script>
   <script src="js/batch.js"></script>
+  <script src="js/bioworker.js" type="text/javascript"></script>
+  <script src="js/worker-manager.js"></script>
+  <script src="js/phase2.js"></script>
   <script src="js/gc.js"></script>
   <script src="js/translate.js"></script>
   <script src="js/orf.js"></script>

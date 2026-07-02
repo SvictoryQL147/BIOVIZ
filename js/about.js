@@ -59,6 +59,6 @@ function aboutPanel() {
   `)}
 
   <div style="text-align:center;padding:20px 0;color:var(--text-3);font-size:12px;">
-    BioViz v2.1 · Open source · <a href="https://github.com" target="_blank" style="color:var(--accent)">View on GitHub</a>
+    BioViz v2.1 · Open source · <a href="https://github.com/SvictoryQL147/BIOVIZ" target="_blank" style="color:var(--accent)">View on GitHub</a>
   </div>`;
 }
